@@ -38,8 +38,6 @@ module.exports = (sequelize, DataTypes) => {
       imageUrl: DataTypes.STRING,
       description: { type: DataTypes.STRING, allowNull: false },
       hourlyRate: DataTypes.FLOAT,
-      testimonials: DataTypes.TEXT,
-      preferences: DataTypes.INTEGER,
       ageOfChildren: DataTypes.INTEGER,
       numberOfChildren: DataTypes.INTEGER,
       userId: { type: DataTypes.INTEGER, allowNull: false },

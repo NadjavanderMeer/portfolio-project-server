@@ -33,12 +33,6 @@ module.exports = {
       hourlyRate: {
         type: Sequelize.FLOAT,
       },
-      testimonials: {
-        type: Sequelize.TEXT,
-      },
-      preferences: {
-        type: Sequelize.INTEGER,
-      },
       ageOfChildren: {
         type: Sequelize.INTEGER,
       },
