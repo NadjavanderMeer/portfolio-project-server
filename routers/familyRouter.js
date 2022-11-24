@@ -12,4 +12,17 @@ router.get("/", async (request, response, next) => {
   response.send(families);
 });
 
+// view family profile
+router.get("/:id", async (request, response, next) => {
+  const familyId = parseInt(request.params.id);
+  console.log("family ID", familyId);
+  const family = await Family.findByPk(familyId);
+
+  if (!family) {
+    response.status(404).send("This profile does not exist");
+  } else {
+    response.send(family);
+  }
+});
+
 module.exports = router;
