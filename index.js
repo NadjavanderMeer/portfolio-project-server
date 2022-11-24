@@ -5,6 +5,7 @@ const corsMiddleware = require("cors");
 // routers
 const authRouter = require("./routers/auth");
 const babysitterRouter = require("./routers/babysitterRouter");
+const familyRouter = require("./routers/familyRouter");
 
 // create an express app
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.json());
 // routes
 app.use("/auth", authRouter);
 app.use("/babysitters", babysitterRouter);
+app.use("/families", familyRouter);
 
 // start listening
 const PORT = process.env.PORT || 4000;
