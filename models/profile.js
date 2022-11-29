@@ -32,14 +32,14 @@ module.exports = (sequelize, DataTypes) => {
   profile.init(
     {
       isBabysitter: { type: DataTypes.BOOLEAN, allowNull: false },
-      locationLongitude: DataTypes.FLOAT,
-      locationLatitude: DataTypes.FLOAT,
+      locationLatitude: { type: DataTypes.FLOAT },
+      locationLongitude: { type: DataTypes.FLOAT },
       name: { type: DataTypes.STRING, allowNull: false },
-      imageUrl: DataTypes.STRING,
-      description: { type: DataTypes.STRING, allowNull: false },
-      hourlyRate: DataTypes.FLOAT,
-      ageOfChildren: DataTypes.INTEGER,
-      numberOfChildren: DataTypes.INTEGER,
+      imageUrl: { type: DataTypes.STRING },
+      description: { type: DataTypes.STRING },
+      hourlyRate: { type: DataTypes.FLOAT },
+      ageOfChildren: { type: DataTypes.INTEGER },
+      numberOfChildren: { type: DataTypes.INTEGER },
       userId: { type: DataTypes.INTEGER, allowNull: false },
     },
     {

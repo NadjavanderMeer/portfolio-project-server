@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   job.init(
     {
-      available: DataTypes.BOOLEAN,
+      available: { type: DataTypes.BOOLEAN },
       startDate: { type: DataTypes.DATE, allowNull: false },
       endDate: { type: DataTypes.DATE, allowNull: false },
       profileId: { type: DataTypes.INTEGER, allowNull: false },

@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   preference.init(
     {
-      name: DataTypes.STRING,
+      name: { type: DataTypes.STRING },
       categoryId: { type: DataTypes.INTEGER, allowNull: false },
     },
     {

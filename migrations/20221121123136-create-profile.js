@@ -13,10 +13,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      locationLongitude: {
+      locationLatitude: {
         type: Sequelize.FLOAT,
       },
-      locationLatitude: {
+      locationLongitude: {
         type: Sequelize.FLOAT,
       },
       name: {
@@ -28,7 +28,6 @@ module.exports = {
       },
       description: {
         type: Sequelize.TEXT,
-        allowNull: false,
       },
       hourlyRate: {
         type: Sequelize.FLOAT,

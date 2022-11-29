@@ -2,7 +2,9 @@ const bcrypt = require("bcrypt");
 const { Router } = require("express");
 const { toJWT } = require("../auth/jwt");
 const authMiddleware = require("../auth/middleware");
+
 const User = require("../models").user;
+const Profile = require("../models").profile;
 
 const router = new Router();
 
@@ -25,9 +27,13 @@ router.post("/login", async (request, response, next) => {
         .send("User with that email not found or password incorrect");
     }
 
+    const profile = await Profile.findOne({
+      where: { userId: user.id },
+    });
+
     delete user.dataValues["password"]; //don't send back password hash
     const token = toJWT({ userId: user.id });
-    return response.status(200).send({ token, user: user.dataValues });
+    return response.status(200).send({ token, user: user.dataValues, profile });
   } catch (error) {
     console.log(error);
     return response.status(400).send("Something wend wrong, sorry");
@@ -55,7 +61,18 @@ router.post("/signup", async (request, response, next) => {
 
     const token = toJWT({ userId: newUser.id });
 
-    response.status(201).json({ token, user: newUser.dataValues });
+    // create new profile
+    const newProfile = await Profile.create({
+      isBabysitter: newUser.isBabysitter,
+      name: newUser.name,
+      userId: newUser.id,
+    });
+
+    response.status(201).json({
+      token,
+      user: newUser.dataValues,
+      profile: { ...newProfile.datavalues },
+    });
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
       return response
@@ -71,9 +88,14 @@ router.post("/signup", async (request, response, next) => {
 // - get the user's email & name using only their token
 // - checking if a token is (still) valid
 router.get("/me", authMiddleware, async (request, response, next) => {
+  console.log("req.user", request.user.id);
+  const profile = await Profile.findOne({
+    where: { userId: request.user.id },
+  });
+
   // don't send back the password hash
-  delete request.user.datavalues["password"];
-  response.status(200).send({ ...request.user.dataValues });
+  delete request.user.dataValues["password"];
+  response.status(200).send({ user: request.user.dataValues, profile });
 });
 
 module.exports = router;
