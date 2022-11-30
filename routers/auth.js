@@ -98,4 +98,38 @@ router.get("/me", authMiddleware, async (request, response, next) => {
   response.status(200).send({ user: request.user.dataValues, profile });
 });
 
+router.patch(
+  "/profiles/:id",
+  authMiddleware,
+  async (request, response, next) => {
+    const {
+      name,
+      imageUrl,
+      description,
+      hourlyRate,
+      ageOfChildren,
+      numberOfChildren,
+    } = parseInt(request.body);
+    const { id } = request.params;
+    console.log("body", request.body);
+    console.log("id", id);
+
+    const profile = await Profile.findByPk(id);
+
+    if (!profile) {
+      response.status(404).send("No profile found with this ID");
+    } else {
+      const updatedProfile = await profile.update({
+        name,
+        imageUrl,
+        description,
+        hourlyRate,
+        ageOfChildren,
+        numberOfChildren,
+      });
+      response.send(updatedProfile);
+    }
+  }
+);
+
 module.exports = router;
