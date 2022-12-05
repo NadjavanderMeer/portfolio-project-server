@@ -109,7 +109,9 @@ router.patch(
       hourlyRate,
       ageOfChildren,
       numberOfChildren,
-    } = parseInt(request.body);
+      locationLatitude,
+      locationLongitude,
+    } = request.body;
     const { id } = request.params;
     console.log("body", request.body);
     console.log("id", id);
@@ -126,6 +128,8 @@ router.patch(
         hourlyRate,
         ageOfChildren,
         numberOfChildren,
+        locationLatitude,
+        locationLongitude,
       });
       response.send(updatedProfile);
     }
